@@ -1,0 +1,170 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background-color: none; /* Set the initial background color to none */
+    color: #171e24; /* Set the initial text color */
+    transition: background-color 0.3s, color 0.3s; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    height: 60px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.header.scrolled {
+    background-color: #171e24; /* Change background color when scrolled */
+    color: #fff; /* Change text color when scrolled */
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.menu li {
+    margin-right: 20px;
+}
+.menu {
+    margin-right: 30px; /* Add space to the right of the menu */
+}
+
+.menu a {
+    text-decoration: none;
+    color: #171e24;
+    font-weight: bold;
+    font-size: 16px;
+    position: relative;
+}
+
+.menu.scrolled a{
+    color: #FFFFFF;
+}
+
+.menu a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: #171e24;
+    position: absolute;
+    bottom: -5px;
+    transition: width 0.3s ease;
+}
+.menu.scrolled a::after{
+    background-color: #FFFFFF;
+}
+
+.menu a:hover::after {
+    width: 100%;
+}
+
+
+/* Content */
+.content {
+    max-width: 100%;
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+    margin: 0 auto;
+}
+
+.full-height {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box; /* Include padding and border in the element's total height */
+}
+
+section {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* Home Scrtion and styling =*/
+
+.home-section {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.left-section,
+.right-section {
+    width: 80px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: #FFFFFF; /* Adjust the background color as needed */
+}
+
+
+.left-section {
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center the content */
+    align-items: center; /* Horizontally center the content */
+}
+.right-section {
+    width: 80px;
+    right: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Add this style for the circle */
+.circle {
+    width: 20px; /* Adjust the size of the circle */
+    height: 20px; /* Adjust the size of the circle */
+    background-color: #333; /* Adjust the color of the circle */
+    border-radius: 50%; /* Make it a circle */
+    margin-bottom: 25px; /* Adjust the spacing */
+}
+
+.middle-section {
+    flex-grow: 1;
+    background-color: #FFFFFF; /* Adjust the background color as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.social-icons a {
+    margin-bottom: 25px; /* Add space between icons */
+}
+.social-icons img {
+    width: 30px; /* Adjust the width of the icons as needed */
+    height: 30px; /* Adjust the height of the icons as needed */
+}
+
