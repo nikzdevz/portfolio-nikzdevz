@@ -1,0 +1,769 @@
+@font-face {
+    font-family: 'Helvetica-Bold-Rounded';
+    src: url('../font/Helvetica-Bold-Rounded.otf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica-Bold';
+    src: url('../font/Helvetica-Bold.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    color: #171e24; /* Set the initial text color */
+    transition: background-color 0.3s, color 0.3s; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    height: 60px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.header.scrolled {
+    background-color: #171e24; /* Change background color when scrolled */
+    color: #fff; /* Change text color when scrolled */
+}
+
+.title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.menu li {
+    margin-right: 20px;
+}
+.menu {
+    margin-right: 30px; /* Add space to the right of the menu */
+}
+
+.menu a {
+    text-decoration: none;
+    color: #171e24;
+    font-weight: bold;
+    font-size: 16px;
+    position: relative;
+}
+
+.menu.scrolled a{
+    color: #FFFFFF;
+}
+
+.menu a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: #171e24;
+    position: absolute;
+    bottom: -5px;
+    transition: width 0.3s ease;
+}
+.menu.scrolled a::after{
+    background-color: #FFFFFF;
+}
+
+.menu a:hover::after {
+    width: 100%;
+}
+
+
+/* Content */
+.content {
+    max-width: 100%;
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+    margin: 0 auto;
+}
+
+.full-height {
+    height: 100vh;
+    min-height: 100vh;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box; /* Include padding and border in the element's total height */
+}
+
+section {
+    max-width: 100%;
+    box-sizing: border-box;
+    min-height: min-content;
+    overflow: auto;
+}
+
+
+/* Home Scrtion and styling =*/
+
+.home-section {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.left-section,
+.right-section {
+    width: 80px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: #FFFFFF; /* Adjust the background color as needed */
+}
+
+
+.left-section {
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center the content */
+    align-items: center; /* Horizontally center the content */
+}
+.right-section {
+    width: 80px;
+    right: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Add this style for the circle */
+.circle {
+    width: 20px; /* Adjust the size of the circle */
+    height: 20px; /* Adjust the size of the circle */
+    background-color: #333; /* Adjust the color of the circle */
+    border-radius: 50%; /* Make it a circle */
+    margin-bottom: 25px; /* Adjust the spacing */
+}
+
+.middle-section {
+    flex-grow: 1;
+    background-color: #FFFFFF; /* Adjust the background color as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.social-icons a {
+    margin-bottom: 25px; /* Add space between icons */
+}
+.social-icons img {
+    width: 30px; /* Adjust the width of the icons as needed */
+    height: 30px; /* Adjust the height of the icons as needed */
+}
+
+
+.small-text,
+.big-text,
+.tag-box {
+    text-align: center;
+}
+
+.small-text {
+    font-size: 20px;
+    color: #888;
+}
+
+.big-text {
+    font-size: 100px;
+    font-weight: bold;
+    margin: 0px 0 25px;
+}
+
+
+.tag-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+}
+.tag-text {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    background-color: #f0f0f0;
+    padding: 15px 30px; /* Adjusted padding */
+    border-radius: 10px;
+}
+
+
+/* ... (Your existing styles) ... */
+
+.about-section {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.left-about,
+.right-about {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+
+.left-about {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    /* transform: translateX(-100%); */
+    
+}
+
+
+.about-text {
+    position: absolute;
+    top: 50%;
+    left: -120px; /* Adjust the value to control how much the text overlays the image */
+    transform: translateY(-50%) rotate(-90deg);
+    font-size: 120px; /* Adjust the font size as needed */
+    line-height: 1;
+    color: white;
+    z-index: 1; /* Ensure text is above the image */
+    overflow: hidden;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.about-image-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.about-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    position: relative;
+}
+
+.right-about {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 50px 0;
+}
+.right-about .right-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.right-about .about-content {
+    margin: 0 auto;
+    color: #888; /* Adjust the text color */
+    font-size: 1.5em; /* Adjust the font size */
+    line-height: 1.8;
+    margin-top: 10px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+/* .right-about .highlight-text {
+    color: red;
+    margin: 0;
+    font-size: 4em;
+    font-weight: bold;
+}
+
+.right-about p:not(.highlight-text) {
+    font-size: 1.5em;
+    color: #888;
+    display: block;
+    margin-block-start: .5em;
+    margin-block-end: .5em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+} */
+
+
+.right-about .tech-stack h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    margin-left: 2px;
+}
+.right-about .tech-stack i{
+    margin: 0 10px;
+}
+.right-about .tag-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.right-about .tag-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 14px;
+    color: #444;
+    padding: 20px 25px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    margin-bottom: 0;
+    margin-right: 0;
+}
+
+.tag-text img { /* Add spacing between the icon and text */
+    width: 40px; /* Adjust the width of the icons as needed */
+    height: 40px; /* Adjust the height of the icons as needed */
+}
+
+.right-about .tag-text:hover {
+    background-color: #171e24; /* Change background color on hover */
+    color: #fff; /* Change text color on hover */
+    transition: background-color 0.3s, color 0.3s; /* Add smooth transition */
+}
+.greeting-section {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    overflow: visible;
+    margin-top: 40px;
+}
+
+.greeting-section p {
+    font-size: 4em;
+    color: #333;
+    font-family: "Helvetica-Bold";
+    margin: 0; /* Shorthand to remove all margins */
+}
+
+.greeting-section img {
+    width: 60%; /* Adjust image width as needed */
+    height: 80px; /* Maintain aspect ratio */
+}
+
+/* Add the following styles for the button */
+#downloadResume {
+    background-color: rgb(194, 100, 76); /* Set button background color */
+    color: #fff; /* Set button text color */
+    padding: 15px 30px; /* Adjust padding as needed */
+    font-size: 16px; /* Adjust font size as needed */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add smooth transition */
+    margin-top: 50px;
+}
+
+#downloadResume:hover {
+    background-color: rgb(241, 26, 11); /* Change background color on hover */
+}
+
+.education-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.education-left,
+.education-middle {
+    /* width: calc(100% - 160)/2; */
+    flex: 1; /* Set equal flex value for left and middle sections */
+    padding: 15px;
+    height: 100%; /* Adjust the background color as needed */
+    box-sizing: border-box;
+}
+
+.education-right {
+    width: 160px;
+    padding: 15px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: center;
+    opacity: 0; /* Initially set opacity to 0 */
+    transform: translateX(120px); /* Initially move the section down by 20px */
+    transition: opacity 0.8s ease, transform 0.8s ease; 
+}
+
+
+.education-right.reached {
+    opacity: 1; /* When the section is reached, set opacity to 1 */
+    transform: translateX(0); /* Move the section back to its original position */
+}
+
+
+.education-right h2.edu-about-text {
+    font-size: 90px;
+    color: #333;
+    transform-origin: center center;
+    transform:rotate(90deg);
+    margin: 0;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.education-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0; /* Initially set opacity to 0 */
+    transform: translateX(-100px); /* Initially move the section down by 20px */
+    transition: opacity 0.8s ease, transform 0.8s ease; 
+}
+
+.education-left.reached {
+    opacity: 1; /* When the section is reached, set opacity to 1 */
+    transform: translateX(0); /* Move the section back to its original position */
+}
+
+.education-left h3 {
+    font-size: 30px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Add this CSS for the vertical step progress bar */
+.StepProgress {
+    position: relative;
+    padding-left: 45px;
+    list-style: none;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 50px 0px; /* Add margin to the StepProgress */
+    box-sizing: border-box; /* Set box-sizing to border-box */
+}
+.StepProgress::before {
+    display: inline-block;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 15px;
+    width: 10px;
+    height: 100%;
+    border-left: 2px solid #CCC;
+}
+.StepProgress-item {
+    position: relative;
+    counter-increment: list;
+    flex-grow: 1;
+}
+.StepProgress-item::before {
+    display: inline-block;
+    content: '';
+    position: absolute;
+    left: -30px;
+    height: 100%;
+    width: 10px;
+}
+.StepProgress-item::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: -37px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #CCC;
+    border-radius: 50%;
+    background-color: #FFF;
+}
+.StepProgress-item.is-done::before {
+    border-left: 2px solid green;
+}
+.StepProgress-item.is-done::after {
+    content: "✔";
+    font-size: 10px;
+    color: #FFF;
+    text-align: center;
+    border: 2px solid green;
+    background-color: green;
+}
+.StepProgress-item.current::before {
+    border-left: 2px solid green;
+}
+.StepProgress-item.current::after {
+    content: counter(list);
+    padding-top: 1px;
+    width: 19px;
+    height: 18px;
+    top: -4px;
+    left: -40px;
+    font-size: 14px;
+    text-align: center;
+    color: green;
+    border: 2px solid green;
+    background-color: white;
+}
+.StepProgress strong {
+    display: block;
+}
+
+.StepProgress-item strong {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.StepProgress-item p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.StepProgress-item span {
+    font-size: 14px;
+    color: #888;
+}
+
+
+.education-middle {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-template-rows: repeat(2, auto); /* 2 rows */
+    gap: 20px; /* Adjust the gap between divs as needed */
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 80px 80px;
+}
+
+.rounded-div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%; /* Adjust the width as needed */
+    background-color: #ebecf0; /* Adjust the background color as needed */
+    border-radius: 25px; /* Make it rounded */
+    margin: 10px 0; /* Adjust the spacing between divs */
+
+
+    
+    opacity: 0; /* Initially set opacity to 0 */
+    transform: translateY(120px); /* Initially move the section down by 20px */
+    transition: opacity 0.8s ease, transform 0.8s ease; 
+}
+
+.education-middle.reached .rounded-div{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.rounded-div h2 {
+    font-size: 100px; /* Adjust the font size of the big numbered text */
+    color: #333; /* Adjust the color as needed */
+    margin-bottom: 10px; /* Adjust the spacing between the number and the property */
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+.rounded-div p {
+    font-size: 16px; /* Adjust the font size of the property text */
+    color: #666; /* Adjust the color as needed */
+    text-align: center; /* Center-align the property text */
+    margin: 0; /* Remove default margin */
+}
+
+
+
+/* ... (Previous code) ... */
+
+#projects .project-section {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+#projects .project-labelled-div {
+    width: 120px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#projects .project-card-parent {
+    flex-grow: 1;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    grid-template-rows: repeat(2, 1fr); /* 2 rows */
+    gap: 20px; /* Adjust the gap between cards as needed */
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 40px;
+}
+
+
+.project-labelled-div h2 {
+    margin: 0;
+    font-size: 24px; /* Adjust the font size as needed */
+    color: #333; /* Adjust the color as needed */
+    text-align: center; /* Center-align the text */
+    transform-origin: center center;
+    transform: rotate(-90deg); /* Rotate the text */
+    white-space: nowrap; /* Prevent text from wrapping */
+    font-size: 4em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+#projects .project-card {
+    background-color: #ebecf0; /* Add a background color to the cards */
+    margin: 20px;
+    border-radius: 25px; /* Add border radius to the cards */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    transition: transform 0.3s ease; /* Add a smooth transition for the transform property */
+}
+
+
+#projects .project-card:hover {
+    transform: scale(1.05); /* Add a scaling effect on hover */
+}
+#projects .project-card h3{
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+#projects .project-card .card-content {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+#projects .project-card .default-content,
+#projects .project-card .hover-content {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px; /* Adjust padding as needed */
+    box-sizing: border-box;
+    transition: transform 0.3s ease; /* Add a smooth transition for the transform property */
+}
+
+#projects .project-card .hover-content {
+    transform: translateX(100%); /* Initially slide out of view */
+    background-color: rgba(255, 255, 255, 0.825); 
+}
+
+/* #projects .project-card:hover .default-content {
+    transform: translateX(-100%); /* Slide default content out of view on hover */
+/* } */ 
+
+#projects .project-card:hover .hover-content {
+    transform: translateX(0); /* Slide hover content into view on hover */
+}
+
+#projects .project-card .hover-content p{
+    text-align: center
+}
+
+
+#projects .project-card .default-content .project-logo-parent {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex: 1;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.project-logo-parent .project-image{
+    max-width: 250px;
+    max-height: 250px;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+#contacts {
+    text-align: center;
+    margin: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+
+.typing-container {
+    text-align: center;
+}
+
+#typing-text {
+    margin: 10px;
+    display: inline-block;
+    font-size: 4em;
+    font-weight: bold;
+    box-sizing : border-box;
+    color: #333; /* Set your desired text color */
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#contacts p {
+    color: #888
+}
+
