@@ -3,22 +3,21 @@ pipeline {
     registry = "nikzdevz/nikzdevz-portfolio"
     registryCredential = "dockerhub_creds"
     dockerImage = ''
+    SERVER_IP = credentials('droidlabzServerIP')
+    SSH_CREDS = credentials('droidlabzServerSecret')
+    DEPLOYMENT_NAME = credentials('nikzdevzPorfolioDeploymentName')
   }
   agent any
   stages {
-
     stage('Clone') {
       steps {
-        // Pull down your Git repository; change 'main' if needed
-        git branch: 'main',
-            url: 'https://github.com/nikzdevz/portfolio-nikzdevz.git'
+        git branch: 'main', url: 'https://github.com/nikzdevz/portfolio-nikzdevz.git'
       }
     }
 
     stage('Build') {
       steps {
         script {
-          // Build Docker image, tagging it with build number
           dockerImage = docker.build("${registry}:${env.BUILD_NUMBER}")
         }
       }
@@ -27,12 +26,25 @@ pipeline {
     stage('Push') {
       steps {
         script {
-          // Log in to Docker Hub and push the image
           docker.withRegistry('', registryCredential) {
-            // Push with BUILD_NUMBER tag
             dockerImage.push("${env.BUILD_NUMBER}")
-            // Also push "latest" tag
             dockerImage.push('latest')
+          }
+        }
+      }
+    }
+
+    stage('Deploy to Minikube') {
+      steps {
+        script {
+          sshagent(credentials: ['droidlabzServerSecret']) {
+            sh """
+              ssh -o StrictHostKeyChecking=no ${SSH_CREDS_USR}@${SERVER_IP} '
+                minikube image pull ${registry}:${env.BUILD_NUMBER}
+                kubectl set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${registry}:${env.BUILD_NUMBER}
+                kubectl rollout status deployment/${DEPLOYMENT_NAME}
+              '
+            """
           }
         }
       }
@@ -40,7 +52,6 @@ pipeline {
 
     stage('Cleanup') {
       steps {
-        // Remove images locally to save space
         sh "docker rmi ${registry}:${env.BUILD_NUMBER}"
         sh "docker rmi ${registry}:latest"
       }
