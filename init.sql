@@ -1,0 +1,41 @@
+-- Database initialization script for nikzdevz portfolio
+
+CREATE DATABASE IF NOT EXISTS nikzdevz_portfolio;
+
+USE nikzdevz_portfolio;
+
+-- Table for recent works/projects
+CREATE TABLE IF NOT EXISTS recentWorks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    postUrl VARCHAR(500) NOT NULL,
+    postCaption VARCHAR(255),
+    postImage VARCHAR(500),
+    postTags VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Table for blog posts
+CREATE TABLE IF NOT EXISTS blogPosts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    postDetailId VARCHAR(100) NOT NULL UNIQUE,
+    postTitle VARCHAR(255) NOT NULL,
+    postCategory VARCHAR(100),
+    postImgUrl VARCHAR(500),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Insert sample data for recent works
+INSERT INTO recentWorks (postUrl, postCaption, postImage, postTags) VALUES
+('https://droidlabz.com', 'DroidLabZ - Visual Android Builder', 'https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=800', 'Android,No-Code,React'),
+('https://beanattendance.nikzdevz.in', 'BEAN Attendance System', 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800', 'IoT,Beacon,Automation'),
+('https://devzstore.nikzdevz.in', 'Devzstore - App Inventor Companion', 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800', 'Marketplace,SDK,Android'),
+('https://kraftresume.com', 'Kraftresume - Smart Resume Engine', 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800', 'SaaS,AI,Resume');
+
+-- Insert sample data for blog posts
+INSERT INTO blogPosts (postDetailId, postTitle, postCategory, postImgUrl) VALUES
+('getting-started-devops', 'Getting Started with DevOps', 'DevOps', 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800'),
+('kubernetes-best-practices', 'Kubernetes Best Practices', 'Kubernetes', 'https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?w=800'),
+('react-performance-tips', 'React Performance Optimization Tips', 'React', 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800'),
+('ci-cd-pipeline-setup', 'Building a CI/CD Pipeline from Scratch', 'CI/CD', 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800');
