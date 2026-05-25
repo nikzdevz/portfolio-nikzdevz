@@ -1,0 +1,11 @@
+# Core dependencies
+Flask>=2.3.0,<3.0.0
+Flask-Mail>=0.9.0
+python-dotenv>=1.0.0
+mysql-connector-python>=8.0.0
+
+# Production server
+gunicorn>=21.0.0
+
+# Utilities
+requests>=2.31.0

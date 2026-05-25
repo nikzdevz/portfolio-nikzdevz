@@ -1,0 +1,94 @@
+# ===========================================
+# Kubernetes Deployment - MySQL Database
+# ===========================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: nikzdevz
+  labels:
+    app: nikzdevz
+    component: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nikzdevz
+      component: database
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nikzdevz
+        component: database
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+              name: mysql
+          envFrom:
+            - configMapRef:
+                name: nikzdevz-config
+            - secretRef:
+                name: nikzdevz-secrets
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nikzdevz-secrets
+                  key: MYSQL_ROOT_PASSWORD
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+            - name: mysql-init
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
+          livenessProbe:
+            exec:
+              command: ["mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD}"]
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            exec:
+              command: ["mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD}"]
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          startupProbe:
+            exec:
+              command: ["mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD}"]
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 30
+          securityContext:
+            runAsNonRoot: false
+            runAsUser: 0
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+                - ALL
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+        - name: mysql-init
+          configMap:
+            name: mysql-init-script
+      restartPolicy: Always
+---

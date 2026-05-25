@@ -7,11 +7,15 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
 dist
 dist-ssr
-*.local
+
+# Environment files (keep .env.example only)
 .env
+.env.local
+.env.*.local
 
 # Editor directories and files
 .vscode/*
@@ -23,3 +27,42 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+ENV.py
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+
+# Docker
+Dockerfile
+Dockerfile.*
+docker-compose*.yml
+.dockerignore
+
+# Kubernetes
+kubernetes/*.yaml
+!kubernetes/kustomization.yaml
+
+# IDE
+*.iml
+
+# OS
+Thumbs.db
+
+# Build artifacts
+*.tgz
+*.tar.gz

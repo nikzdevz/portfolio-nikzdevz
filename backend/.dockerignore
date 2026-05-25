@@ -1,0 +1,73 @@
+# Environment files (use env vars instead)
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+Jenkinsfile
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+venv
+.venv
+ENV.py
+.env
+
+# Testing
+.tox
+.pytest_cache
+.coverage
+htmlcov
+*.cover
+
+# Documentation
+README.md
+CHANGELOG.md
+LICENSE
+
+# Debug
+*.log
+
+# Misc
+*.tmp
+*.temp
+.cache

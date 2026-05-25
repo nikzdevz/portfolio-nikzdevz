@@ -1,0 +1,63 @@
+# ===========================================
+# Kubernetes Ingress - API Gateway / Reverse Proxy
+# ===========================================
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nikzdevz-ingress
+  namespace: nikzdevz
+  labels:
+    app: nikzdevz
+    component: ingress
+  annotations:
+    # Nginx ingress controller annotations
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    # Rate limiting (optional)
+    nginx.ingress.kubernetes.io/limit-rps: "100"
+    nginx.ingress.kubernetes.io/limit-connections: "50"
+spec:
+  ingressClassName: nginx
+  rules:
+    # HTTP to HTTPS redirect (when TLS is configured)
+    - host: nikzdevz.in
+      http:
+        paths:
+          # Frontend - serves all non-API routes
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend-service
+                port:
+                  number: 80
+          # Backend API
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service
+                port:
+                  number: 5000
+    # WWW redirect host (optional)
+    - host: www.nikzdevz.in
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend-service
+                port:
+                  number: 80
+  # TLS Configuration (uncomment when certificates are ready)
+  # tls:
+  #   - hosts:
+  #       - nikzdevz.in
+  #       - www.nikzdevz.in
+  #     secretName: nikzdevz-tls-secret
+---

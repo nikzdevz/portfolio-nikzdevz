@@ -1,0 +1,63 @@
+# ===========================================
+# Kubernetes Network Policy
+# ===========================================
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: nikzdevz-network-policy
+  namespace: nikzdevz
+  labels:
+    app: nikzdevz
+    component: network
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Allow ingress from ingress controller (nginx)
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: ingress-nginx
+      ports:
+        - protocol: TCP
+          port: 3000
+    # Allow ingress from frontend to backend
+    - from:
+        - podSelector:
+            matchLabels:
+              app: nikzdevz
+              component: frontend
+      ports:
+        - protocol: TCP
+          port: 5000
+  egress:
+    # Allow DNS
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - protocol: UDP
+          port: 53
+    # Allow egress to MySQL
+    - to:
+        - podSelector:
+            matchLabels:
+              app: nikzdevz
+              component: database
+      ports:
+        - protocol: TCP
+          port: 3306
+    # Allow external HTTP/HTTPS for API calls and email
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - protocol: TCP
+          port: 80
+        - protocol: TCP
+          port: 443
+        - protocol: TCP
+          port: 587
+        - protocol: TCP
+          port: 465
+---

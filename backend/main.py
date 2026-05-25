@@ -9,6 +9,9 @@ load_dotenv()
 
 app = Flask(__name__)
 
+# Get port from environment
+PORT = int(os.getenv('BACKEND_PORT', 5000))
+
 # Configuring Flask-Mail using environment variables
 app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
 app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))
@@ -17,6 +20,20 @@ app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 
 mail = Mail(app)
+
+
+# Health check endpoint
+@app.route('/health')
+def health():
+    try:
+        connection = get_db_connection()
+        cursor = connection.cursor()
+        cursor.execute('SELECT 1')
+        cursor.close()
+        connection.close()
+        return jsonify({'status': 'healthy', 'database': 'connected'}), 200
+    except Exception as e:
+        return jsonify({'status': 'healthy', 'database': 'disconnected', 'error': str(e)}), 200
 
 
 # Database connection
@@ -94,5 +111,5 @@ def send_email():
 
 
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=5000)
+    app.run(debug=False, host="0.0.0.0", port=PORT)
 

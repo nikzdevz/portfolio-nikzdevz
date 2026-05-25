@@ -1,0 +1,12 @@
+# ===========================================
+# Kubernetes Namespace
+# ===========================================
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nikzdevz
+  labels:
+    app: nikzdevz
+    environment: production
+    managed-by: kubectl
+---

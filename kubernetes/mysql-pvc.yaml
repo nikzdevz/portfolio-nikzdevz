@@ -1,0 +1,43 @@
+# ===========================================
+# Kubernetes PersistentVolumeClaim - MySQL Storage
+# ===========================================
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  namespace: nikzdevz
+  labels:
+    app: nikzdevz
+    component: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: standard
+  selector:
+    matchLabels:
+      type: mysql-data
+---
+# ===========================================
+# Kubernetes PersistentVolume (Local Development)
+# ===========================================
+# For production, use cloud provider storage (AWS EBS, GCE PD, Azure Disk)
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+  labels:
+    type: mysql-data
+    app: nikzdevz
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  hostPath:
+    path: /data/mysql
+---

@@ -1,0 +1,35 @@
+# ===========================================
+# Kubernetes Kustomization
+# ===========================================
+# Use: kubectl apply -k . or kubectl kustomize .
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: nikzdevz
+
+resources:
+  - namespace.yaml
+  - serviceaccount.yaml
+  - configmap.yaml
+  - secret.yaml
+  - mysql-pvc.yaml
+  - mysql-configmap.yaml
+  - mysql-deployment.yaml
+  - mysql-service.yaml
+  - backend-deployment.yaml
+  - backend-service.yaml
+  - frontend-deployment.yaml
+  - frontend-service.yaml
+  - ingress.yaml
+  - hpa.yaml
+  - network-policy.yaml
+
+commonLabels:
+  app: nikzdevz
+  managed-by: kustomize
+
+images:
+  - name: nikzdevz-backend
+    newTag: latest
+  - name: nikzdevz-frontend
+    newTag: latest
