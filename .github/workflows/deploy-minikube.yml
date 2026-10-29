@@ -1,0 +1,70 @@
+name: Deploy to minikube (portfolio, frontend-only)
+
+# Portfolio ab sirf frontend hai (backend aur MySQL repo se hata diye gaye).
+# Sirf main par push (ya hath se). pull_request par KABHI nahi (self-hosted runner).
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
+  workflow_dispatch:
+
+concurrency:
+  group: portfolio-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, minikube]
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    env:
+      NS: portfolio
+      SITE_URL: https://www.nikzdevz.in
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Image tag
+        run: |
+          echo "TAG=ci-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}-${GITHUB_SHA::7}" >> "$GITHUB_ENV"
+
+      - name: Build frontend image
+        run: docker build -t nikzdevz-frontend:${TAG} ./frontend
+
+      - name: Load image into minikube
+        run: minikube image load nikzdevz-frontend:${TAG}
+
+      - name: Roll out new version
+        run: |
+          kubectl -n ${NS} set image deploy/portfolio-frontend frontend=nikzdevz-frontend:${TAG}
+          kubectl -n ${NS} rollout status deploy/portfolio-frontend --timeout=180s
+
+      - name: Health check
+        run: |
+          for i in 1 2 3 4 5 6; do
+            if curl -fsS -o /dev/null ${SITE_URL}/; then echo "healthy"; exit 0; fi
+            echo "retry $i"; sleep 10
+          done
+          echo "health check FAIL"; exit 1
+
+      - name: Rollback on failure
+        if: failure()
+        run: |
+          echo "Deploy fail hua, purana version wapas laga raha hoon"
+          kubectl -n ${NS} rollout undo deploy/portfolio-frontend || true
+          kubectl -n ${NS} rollout status deploy/portfolio-frontend --timeout=120s || true
+
+      - name: Cleanup purani images (last 3 rakho)
+        if: success()
+        run: |
+          docker images --format '{{.Repository}}:{{.Tag}}' \
+            | grep "^nikzdevz-frontend:ci-" | tail -n +4 | xargs -r docker rmi || true
+          minikube ssh -- sudo crictl rmi --prune >/dev/null 2>&1 || true
+          docker image prune -f >/dev/null 2>&1 || true
