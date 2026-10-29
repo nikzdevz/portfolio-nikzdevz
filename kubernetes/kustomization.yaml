@@ -9,15 +9,7 @@ namespace: nikzdevz
 
 resources:
   - namespace.yaml
-  - serviceaccount.yaml
   - configmap.yaml
-  - secret.yaml
-  - mysql-pvc.yaml
-  - mysql-configmap.yaml
-  - mysql-deployment.yaml
-  - mysql-service.yaml
-  - backend-deployment.yaml
-  - backend-service.yaml
   - frontend-deployment.yaml
   - frontend-service.yaml
   - ingress.yaml
@@ -29,7 +21,9 @@ commonLabels:
   managed-by: kustomize
 
 images:
-  - name: nikzdevz-backend
-    newTag: latest
   - name: nikzdevz-frontend
     newTag: latest
+
+# Backends and MySQL removed during the frontend-only migration.
+# Previously managed: namespace.yaml, serviceaccount.yaml, mysql-*.yaml,
+# backend-*.yaml (kept in git history).

@@ -34,17 +34,10 @@ spec:
             - containerPort: 3000
               name: http
               protocol: TCP
-          env:
-            - name: VITE_API_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: nikzdevz-config
-                  key: VITE_API_URL
-            - name: GEMINI_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: nikzdevz-secrets
-                  key: GEMINI_API_KEY
+          # No backend dependencies remain; no VITE_API_URL or third-party API
+          # keys are needed at runtime. GEMINI_API_KEY was only referenced in the
+          # removed backend. If AI features are added in future, inject the key
+          # here via a secret instead.
           resources:
             requests:
               memory: "64Mi"

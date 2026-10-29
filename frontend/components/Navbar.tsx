@@ -1,106 +1,117 @@
-
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Rocket } from 'lucide-react';
+﻿import { useEffect, useRef, useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { COMPANY } from '../constants';
 
-const Navbar: React.FC = () => {
+const NAV_LINKS = [
+  { label: 'About', to: '/#about' },
+  { label: 'Products', to: '/#products' },
+  { label: 'All work', to: '/projects' },
+  { label: 'Contact', to: '/#contact' },
+];
+
+const isCurrent = (pathname: string, hash: string, to: string) => {
+  const [toPath, toHash = ''] = to.split('#');
+  return pathname === toPath && hash === (toHash ? `#${toHash}` : '');
+};
+
+const BrandMark = () => (
+  <Link className="brand-mark" to="/" aria-label="nikzdevz home">
+    <span className="brand-mark__glyph" aria-hidden="true">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+        <path d="M2 11 11 2M2 2l9 9" stroke="currentColor" strokeWidth="1.2" />
+      </svg>
+    </span>
+    <span className="brand-mark__copy">
+      <span className="brand-mark__name">nikzdevz</span>
+      <span className="brand-mark__lab">Nikhil Kumar Gupta / {COMPANY.shortName}</span>
+    </span>
+  </Link>
+);
+
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
+  const { pathname, hash } = useLocation();
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Small threshold for immediate feedback without jitter
-      setScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const updateScrollState = () => setScrolled(window.scrollY > 18);
+    updateScrollState();
+    window.addEventListener('scroll', updateScrollState, { passive: true });
+    return () => window.removeEventListener('scroll', updateScrollState);
   }, []);
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Projects', path: '/projects' },
-    { name: 'About', path: '/#about' },
-    { name: 'Contact', path: '/#contact' },
-  ];
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname, hash]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [isOpen]);
 
   return (
-    <nav 
-      className={`fixed top-0 left-0 w-full z-50 transition-[padding,background-color,box-shadow] duration-500 ease-in-out border-b ${
-        scrolled 
-          ? 'py-4 bg-midnight/80 backdrop-blur-xl border-white/10 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]' 
-          : 'py-8 bg-transparent border-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-purple to-brand-teal flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform flex-shrink-0">
-            <Rocket size={20} />
-          </div>
-          <div className="flex flex-col leading-none">
-            <span className="text-xl font-display font-black tracking-tight uppercase">
-              nikz<span className="text-brand-purple">devz</span>
-            </span>
-            <span className="text-[8px] font-black uppercase tracking-[0.2em] text-slate-500 group-hover:text-brand-teal transition-colors mt-0.5">
-              & Co. Studio
-            </span>
-          </div>
-        </Link>
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-10">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path}
-              className={`text-[10px] font-black uppercase tracking-[0.25em] transition-all hover:text-brand-teal hover:translate-y-[-1px] ${
-                location.pathname === link.path && !location.hash ? 'text-brand-purple' : 'text-slate-400'
-              }`}
-            >
-              {link.name}
+    <header className={`nav${scrolled ? ' nav--scrolled' : ''}${isOpen ? ' nav--open' : ''}`}>
+      <nav className="container" aria-label="Primary navigation">
+        <div className="nav__inner">
+          <BrandMark />
+          <div className="nav__links">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.label}
+                className={`nav__link${isCurrent(pathname, hash, link.to) ? ' nav__link--active' : ''}`}
+                to={link.to}
+                aria-current={isCurrent(pathname, hash, link.to) ? 'page' : undefined}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link className="button button--primary nav__cta nav__desktop-cta" to="/#contact">
+              Work with me
             </Link>
-          ))}
-        </div>
-
-        {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center gap-4">
+          </div>
           <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="p-2 text-slate-300 hover:text-white transition-colors"
-            aria-label="Toggle menu"
+            ref={toggleRef}
+            className="nav__toggle"
+            type="button"
+            onClick={() => setIsOpen((open) => !open)}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
           </button>
         </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden absolute top-full left-0 w-full glass-card border-b border-white/5 overflow-hidden"
-          >
-            <div className="flex flex-col p-8 gap-6 bg-midnight/95 backdrop-blur-3xl">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  onClick={() => setIsOpen(false)}
-                  className="text-lg font-display font-black uppercase tracking-widest border-b border-white/5 pb-4 last:border-0"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-          </motion.div>
+          <div id="mobile-navigation" className="nav__mobile">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.label}
+                className={`nav__link${isCurrent(pathname, hash, link.to) ? ' nav__link--active' : ''}`}
+                to={link.to}
+                aria-current={isCurrent(pathname, hash, link.to) ? 'page' : undefined}
+                onClick={() => setIsOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link className="button button--primary nav__cta" to="/#contact" onClick={() => setIsOpen(false)}>
+              Work with me
+            </Link>
+          </div>
         )}
-      </AnimatePresence>
-    </nav>
+      </nav>
+    </header>
   );
 };
 
 export default Navbar;
+

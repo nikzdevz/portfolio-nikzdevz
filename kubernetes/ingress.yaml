@@ -27,7 +27,7 @@ spec:
     - host: nikzdevz.in
       http:
         paths:
-          # Frontend - serves all non-API routes
+          # Frontend - serves all routes
           - path: /
             pathType: Prefix
             backend:
@@ -35,14 +35,6 @@ spec:
                 name: frontend-service
                 port:
                   number: 80
-          # Backend API
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: backend-service
-                port:
-                  number: 5000
     # WWW redirect host (optional)
     - host: www.nikzdevz.in
       http:

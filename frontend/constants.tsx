@@ -1,152 +1,193 @@
+import type { Project, Testimonial } from './types';
 
-import React from 'react';
-import { Project } from './types';
-import { 
-  Code2, 
-  Terminal, 
-  Smartphone, 
-  Cloud, 
-  Cpu, 
-  Globe, 
-  Layout, 
-  Database, 
-  Server, 
-  Workflow, 
-  Zap, 
-  ShieldCheck
-} from 'lucide-react';
-
-export const SKILLS = {
-  'Full-Stack': [
-    { name: 'HTML/CSS', icon: <Globe className="w-5 h-5" />, level: 95 },
-    { name: 'JavaScript/TS', icon: <Code2 className="w-5 h-5" />, level: 90 },
-    { name: 'React', icon: <Layout className="w-5 h-5" />, level: 90 },
-    { name: 'Flask/Django', icon: <Database className="w-5 h-5" />, level: 85 }
-  ],
-  'DevOps & Cloud': [
-    { name: 'Docker', icon: <Cpu className="w-5 h-5" />, level: 88 },
-    { name: 'Kubernetes', icon: <Workflow className="w-5 h-5" />, level: 80 },
-    { name: 'AWS', icon: <Cloud className="w-5 h-5" />, level: 85 },
-    { name: 'CI/CD', icon: <Server className="w-5 h-5" />, level: 90 }
-  ]
-};
+export const COMPANY = {
+  name: 'KraftStack Technologies',
+  shortName: 'KraftStack',
+  slogan: "Crafting tomorrow's intelligence today.",
+  author: 'Nikhil Kumar Gupta',
+  email: 'nikzdreamer2001@gmail.com',
+  phoneDisplay: '+91 63875 77224',
+  phoneHref: 'tel:+916387577224',
+  whatsapp: 'https://wa.me/916387577224',
+  github: 'https://github.com/nikzdevz',
+  linkedin: 'https://linkedin.com/in/nikzdevz',
+  twitter: 'https://twitter.com/nikzdevz',
+} as const;
 
 export const PRODUCTS: Project[] = [
   {
+    id: 'our-movies-night',
+    composition: 'theatre',
+    suite: 'Featured premiere',
+    index: '01',
+    title: 'Our Movies Night',
+    kicker: 'Social cinema',
+    scene: 'cinema',
+    status: 'live',
+    statusLabel: 'Live product',
+    tagline: 'Watch together. Feel together.',
+    description: 'A private cinema room for couples, friends and squads, with synchronized playback, live reactions and gifting.',
+    longDescription: 'Our Movies Night brings people into the same screening, even when they are apart. Create a private cinema room and share its ticket code, or join with a six-character ticket. Playback stays in lockstep while the room carries the social rituals: private chat, reactions, rose showers and live gifting. The product describes a zero-server-upload model and sub-second P2P playback, and includes an optional Couple Romance Mode.',
+    tags: ['Synchronized Streaming', 'P2P Playback', 'Social Cinema', 'Live Gifting'],
+    link: 'https://watchwithme.kraftstack.in/',
+    features: [
+      'Private rooms for two to twenty people',
+      'Join with a ticket code and synchronized playback',
+      'Live reactions, rose showers and a gifting lounge',
+      'Duo rituals, popcorn passing, cheers and private chat',
+      'Couple Romance Mode and a Hall of Fame',
+    ],
+    focus: true,
+  },
+  {
     id: 'droidlabz',
+    composition: 'canvas',
+    suite: 'Visual studio',
+    index: '02',
     title: 'DroidLabZ',
-    tagline: 'Revolutionary visual Android builder',
-    description: 'Build high-end Android apps without syntax roadblocks using a visual drag-and-drop interface.',
-    longDescription: 'DroidLabZ is a revolutionary visual Android builder that lets users create powerful apps visually, speeding up development for both beginners and advanced users. Build high-end Android apps without syntax roadblocks. Ideal for students, startups, and non-coders, emphasizing speed, simplicity, and power.',
-    image: 'https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?auto=format&fit=crop&q=80&w=800',
-    tags: ['Android', 'No-Code', 'Visual Logic', 'React'],
-    isProduct: true,
+    kicker: 'Visual Android studio',
+    scene: 'android',
+    status: 'live',
+    statusLabel: 'Live product',
+    tagline: 'An Android builder that moves at the speed of an idea.',
+    description: 'A visual, drag-and-drop Android app builder for turning an idea into a working app without syntax roadblocks.',
+    longDescription: 'DroidLabZ is a visual Android builder designed for rapid prototyping and app development. Compose an interface, connect app logic and move from a concept to a testable Android experience without starting from boilerplate. It is built for students, startups and non-coders who need speed and simplicity, while giving experienced developers a faster way to explore an app idea. Its canvas brings Android app screens, logic and reusable components into one working surface, with faster paths to a testable build.',
+    tags: ['Android', 'No-Code', 'Visual Builder', 'App Development', 'Developer Tools'],
     link: 'https://droidlabz.com',
     features: [
       'Visual drag-and-drop interface',
-      'Zero syntax roadblocks',
-      'Ideal for students & startups',
-      'Rapid prototyping & deployment'
-    ]
+      'A composable Android canvas for interface, logic and components',
+      'Build app flows without syntax roadblocks',
+      'Rapid Android prototyping',
+      'A lower barrier for students, startups and non-coders',
+    ],
+    focus: true,
+  },
+  {
+    id: 'orbit-desk',
+    composition: 'surround',
+    suite: 'Learning surround',
+    index: '03',
+    title: 'Orbit Desk',
+    kicker: 'AI study environment',
+    scene: 'desk',
+    status: 'in-development',
+    statusLabel: 'Research & development',
+    tagline: 'A study desk that learns with you.',
+    description: 'A three-panel AI study surround that follows your syllabus, notices when you are present and helps you learn by teaching.',
+    longDescription: 'Orbit Desk is a research and development concept for an AI-native learning environment. One main panel or a three-panel surround turns a desk into a responsive study space. When you sit down, it recognizes your presence; it tracks what you have read, what you are learning now and what comes next in the syllabus, then prepares the material for the session. Desk cameras help it understand where you are, and when you are stuck on a corner topic, the panel display steps in to teach it. The system is designed to learn from the learner, invite you to teach ideas back and build understanding through retrieval and interaction. It is developed for smart study desks, smart libraries and classrooms.',
+    tags: ['AI Tutoring', 'Spatial Computing', 'Computer Vision', 'Adaptive Learning', 'Smart Classroom'],
+    features: [
+      'One main panel or a three-panel study surround',
+      'Presence-aware sessions when you reach the desk',
+      'Syllabus progress: read, ongoing and next',
+      'Session content prepared around the learner',
+      'Desk cameras and on-panel teaching for corner topics',
+      'Designed for smart desks, smart libraries and classrooms',
+    ],
+    focus: true,
+  },
+  {
+    id: 'stack-labs',
+    composition: 'vault',
+    suite: 'Sealed dossier',
+    index: '04',
+    title: 'Stack Labs',
+    kicker: 'Classified experiment',
+    scene: 'classified',
+    status: 'classified',
+    statusLabel: 'Classified',
+    tagline: 'A complete package for something confidential.',
+    description: 'A complete package for something very secret is taking shape inside Stack Labs. Consider it a surprise.',
+    longDescription: 'Stack Labs is a complete package for a very secret project. Work is underway, but the details stay sealed. Consider this your invitation to the surprise: watch this space.',
+    tags: ['Classified', 'In development', 'Surprise'],
+    features: ['Intentionally undisclosed', 'A complete package in progress', 'The surprise comes later'],
+    focus: true,
   },
   {
     id: 'bean-attendance',
+    index: '05',
     title: 'BEAN Attendance',
-    tagline: 'Beacon-powered automation for institutional tracking',
-    description: 'Zero-friction attendance system using Beacon and mobile-based detection for institutions.',
-    longDescription: 'BEAN Attendance is a smart, beacon-enabled attendance tracker for colleges and institutions. It automates attendance, reduces manual errors, and gives real-time insights to admins and teachers. A zero-friction attendance system with beacon + mobile-based detection, designed for schools, colleges, and enterprises. Focused on accuracy, automation, and scalability.',
-    image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=800',
+    kicker: 'Institutional presence',
+    scene: 'beacon',
+    status: 'live',
+    statusLabel: 'Live product',
+    tagline: 'Attendance without the friction.',
+    description: 'A beacon-powered attendance system for schools, colleges and workplaces, built around mobile detection.',
+    longDescription: 'BEAN Attendance turns an everyday institutional requirement into a quieter, automated workflow. Using beacon and mobile-based detection, it is designed to reduce manual roll calls for schools, colleges and workplaces, giving teachers and administrators a clearer view of attendance.',
     tags: ['IoT', 'Beacon', 'Automation', 'Enterprise'],
-    isProduct: true,
     link: 'https://beanattendance.nikzdevz.in',
     features: [
-      'Zero-friction attendance system',
-      'Beacon + mobile detection',
-      'Real-time admin insights',
-      'Highly scalable infrastructure'
-    ]
+      'Beacon and mobile-based presence detection',
+      'Designed for schools, colleges and workplaces',
+      'Less manual attendance work',
+      'A clearer view for teachers and administrators',
+    ],
+    focus: true,
   },
   {
     id: 'devzstore',
+    index: '06',
     title: 'Devzstore',
-    tagline: 'The ultimate App Inventor companion',
-    description: 'One-click native library integration and plugin marketplace for App Inventor creators.',
-    longDescription: 'Devzstore is the best App Inventor companion tool to integrate external libraries and advanced features, helping creators push App Inventor projects beyond default limits. It features one-click native library integration and a plugin marketplace concept that saves developers time and complexity, highlighting pure developer productivity.',
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800',
+    kicker: 'Developer toolkit',
+    scene: 'android',
+    status: 'live',
+    statusLabel: 'Live product',
+    tagline: 'The App Inventor companion.',
+    description: 'Native library integration and a plugin marketplace concept for App Inventor creators.',
+    longDescription: 'Devzstore helps App Inventor creators push beyond the default toolkit with one-click native library integration and a plugin marketplace concept. It is a productivity layer for developers who want additional native capabilities without unnecessary setup.',
     tags: ['Marketplace', 'SDK', 'Android', 'Developer Tools'],
-    isProduct: true,
     link: 'https://devzstore.nikzdevz.in',
     features: [
       'One-click native library integration',
-      'Plugin marketplace concept',
-      'Saves dev time & complexity',
-      'Native feature expansion'
-    ]
+      'A plugin marketplace concept',
+      'Additional native capabilities for App Inventor',
+    ],
   },
   {
     id: 'kraftresume',
+    index: '07',
     title: 'Kraftresume',
-    tagline: 'Smart resume engine',
-    description: 'One profile to multiple ATS-friendly resumes. Built for job seekers and professionals.',
-    longDescription: 'Kraftresume is a smart resume engine where you enter your data once and generate multiple ATS-friendly resumes tailored to different job roles and companies. Using one profile to create multiple ATS-optimized resumes, it features role-based generation built specifically for job seekers and professionals, emphasizing intelligence and automation.',
-    image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=800',
-    tags: ['SaaS', 'AI', 'Resume', 'ATS-Optimization'],
-    isProduct: true,
+    kicker: 'Career tool',
+    scene: 'android',
+    status: 'live',
+    statusLabel: 'Live product',
+    tagline: 'One profile. Multiple tailored resumes.',
+    description: 'Build a profile once, then generate multiple ATS-friendly resumes for different roles and opportunities.',
+    longDescription: 'Kraftresume turns a single professional profile into resumes tailored to different roles and opportunities. Enter your information once, then generate multiple ATS-friendly versions for the applications ahead.',
+    tags: ['SaaS', 'Resume', 'ATS-Optimized', 'Career'],
     link: 'https://kraftresume.com',
     features: [
-      'One profile → Multiple resumes',
-      'ATS-optimized generation',
-      'Role-based intelligence',
-      'Automated formatting engine'
-    ]
-  }
+      'One profile for multiple resumes',
+      'ATS-friendly resume generation',
+      'Role-specific versions from one source of truth',
+    ],
+  },
 ];
 
-export const FEATURED_PROJECTS: Project[] = [
+export const FOCUS_PRODUCTS = PRODUCTS.filter((product) => product.focus);
+
+export const TESTIMONIALS: Testimonial[] = [
   {
-    id: 'cloud-orchestrator',
-    title: 'Nexus Cloud Orchestrator',
-    description: 'Custom Kubernetes control plane for multi-region hybrid deployments.',
-    image: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?auto=format&fit=crop&q=80&w=800',
-    tags: ['DevOps', 'Go', 'Kubernetes', 'AWS']
+    name: 'Shalini',
+    role: 'Team Member · Scrapius',
+    quote: 'Working with Nikhil was a fantastic experience. He developed a seamless and responsive landing page for my business, and his attention to detail was outstanding. The final product was delivered on time and exceeded my expectations. Highly recommended!',
   },
   {
-    id: 'fintech-gateway',
-    title: 'SecurePay Gateway',
-    description: 'Scalable payment processing engine with fraud detection capabilities.',
-    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800',
-    tags: ['React', 'Node.js', 'PostgreSQL', 'Redis']
+    name: 'Umar Ali',
+    role: 'Friend',
+    quote: 'Nikhil helped me set up a CI/CD pipeline and deploy my application on AWS. His expertise and clear communication made the entire process smooth and hassle-free. I’m truly impressed with his technical skills and professionalism.',
   },
   {
-    id: 'streaming-platform',
-    title: 'VibeStream',
-    description: 'Low-latency live streaming infrastructure for gaming communities.',
-    image: 'https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?auto=format&fit=crop&q=80&w=800',
-    tags: ['WebRTC', 'Django', 'Socket.io', 'Docker']
+    name: 'Prince Mishra',
+    role: 'Client',
+    quote: 'I’m amazed by the secure video streaming player Nikhil built for us! The project was completed incredibly fast without compromising on quality or security. His expertise and efficiency truly exceeded my expectations!',
   },
-  {
-    id: 'ai-code-analyst',
-    title: 'CodeGuard AI',
-    description: 'Automated CI/CD security scanner that detects vulnerabilities in real-time.',
-    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800',
-    tags: ['Python', 'ML', 'Terraform', 'CI/CD']
-  }
 ];
 
-export const TESTIMONIALS = [
-  {
-    name: "Sarah Johnson",
-    role: "CTO @ TechFlow",
-    quote: "Nikhil is a wizard with DevOps. He transformed our deployment cycle from hours to minutes."
-  },
-  {
-    name: "Marco Rossi",
-    role: "Founder @ DroidSpark",
-    quote: "The DroidLabZ platform is a game-changer for our internal prototyping team."
-  },
-  {
-    name: "Anita Desai",
-    role: "Head of Product @ EduGate",
-    quote: "Professional, reliable, and deeply technical. The BEAN Attendance system worked flawlessly."
-  }
-];
+export const CAPABILITIES = [
+  { number: '01', title: 'Product engineering', description: 'Full-stack web products, from interface architecture to release.', details: ['React', 'TypeScript', 'Python', 'Flask', 'Django'] },
+  { number: '02', title: 'Intelligent systems', description: 'AI workflows, adaptive experiences and human-centered automation.', details: ['Machine learning', 'LLM workflows', 'Computer vision concepts'] },
+  { number: '03', title: 'Connected platforms', description: 'Systems that meet the physical world through devices, presence and signals.', details: ['IoT', 'Beacon systems', 'Android'] },
+  { number: '04', title: 'Cloud foundations', description: 'Containerized delivery and resilient infrastructure for growing products.', details: ['Docker', 'Kubernetes', 'AWS', 'CI/CD'] },
+] as const;

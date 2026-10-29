@@ -47,15 +47,9 @@ sdist/
 develop-eggs/
 .installed.cfg
 
-# Docker
-Dockerfile
-Dockerfile.*
-docker-compose*.yml
-.dockerignore
-
-# Kubernetes
-kubernetes/*.yaml
-!kubernetes/kustomization.yaml
+# Docker and Kubernetes infrastructure is tracked source for this repo:
+# the CI pipeline builds ./Dockerfile and deploys kubernetes/.
+# Do NOT ignore Dockerfile, docker-compose*.yml, .dockerignore, or kubernetes/*.yaml.
 
 # IDE
 *.iml
@@ -66,3 +60,17 @@ Thumbs.db
 # Build artifacts
 *.tgz
 *.tar.gz
+# Local portfolio research evidence
+.ai/swe/plans/**/research/
+
+# Local agent tooling and machine-specific state (never published)
+.ai/
+.claude/
+.trail/
+.vite/
+.mcp.json
+
+# Editor backups and local runtime scratch files
+*.edit-backup.*
+*.pid
+*.err.log

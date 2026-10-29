@@ -1,93 +1,66 @@
-
-import React from 'react';
-import { FEATURED_PROJECTS, PRODUCTS } from '../constants';
-import { motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { COMPANY, PRODUCTS } from '../constants';
+import { SceneSection } from '../components/SceneSection';
 
-const ProjectsPage: React.FC = () => {
-  const allProjects = [...PRODUCTS, ...FEATURED_PROJECTS];
-
-  return (
-    <main className="min-h-screen pt-32 pb-24 px-6">
-      <div className="max-w-7xl mx-auto">
-        <Link to="/" className="inline-flex items-center gap-2 text-brand-purple font-bold mb-12 hover:-translate-x-1 transition-transform">
-          <ArrowLeft size={20} /> Back to Home
-        </Link>
-        
-        <header className="mb-16">
-          <h1 className="text-5xl md:text-7xl font-display font-extrabold mb-6">
-            All <span className="text-brand-purple">Projects</span>
-          </h1>
-          <p className="text-xl text-secondary max-w-2xl">
-            A comprehensive list of products, client works, and experimental projects.
-          </p>
-        </header>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {allProjects.map((project, i) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="glass-card rounded-3xl overflow-hidden group h-full flex flex-col"
-            >
-              <div className="h-64 overflow-hidden relative">
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                {project.isProduct && (
-                  <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-brand-pink text-white text-xs font-bold uppercase tracking-widest">
-                    Studio Product
-                  </div>
-                )}
-              </div>
-              <div className="p-8 flex-1 flex flex-col">
-                <h3 className="text-2xl font-bold mb-4">{project.title}</h3>
-                <p className="text-secondary mb-6 line-clamp-3">{project.description}</p>
-                <div className="mt-auto flex justify-between items-center">
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map(t => (
-                      <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-secondary uppercase font-bold">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex gap-2">
-                    {project.isProduct && (
-                      <Link 
-                        to={`/product/${project.id}`}
-                        className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-white transition-colors flex items-center"
-                      >
-                        Deep Dive
-                      </Link>
-                    )}
-                    {project.link ? (
-                      <a 
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-10 h-10 rounded-xl glass-card flex items-center justify-center hover:bg-brand-purple hover:text-white transition-colors"
-                      >
-                        <ArrowUpRight size={20} />
-                      </a>
-                    ) : (
-                      <div className="w-10 h-10 rounded-xl glass-card flex items-center justify-center opacity-30 cursor-not-allowed">
-                        <ArrowUpRight size={20} />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+const ProductsPage = () => (
+  <main id="main-content" className="page">
+    <SceneSection className="page-header-scene">
+      <header className="page-header">
+        <div className="container page-header__inner">
+          <span className="mono-label mono-label--accent">Nikhil Kumar Gupta / Founder, KraftStack</span>
+          <h1>Work built to move <span>ideas forward.</span></h1>
+          <div className="page-header__lower">
+            <p className="page-header__lede">
+              Nikhil's seven projects, built under {COMPANY.name}, span social cinema, Android building,
+              adaptive learning, connected attendance and career tools. Open any project for its full story.
+            </p>
+            <div className="page-header__aside">
+              <span className="mono-label">Seven products</span>
+              <span className="mono-label">Five focal builds</span>
+              <span className="mono-label">One classified experiment</span>
+            </div>
+          </div>
         </div>
+      </header>
+    </SceneSection>
+    <section className="container page-section" aria-labelledby="project-index-title">
+      <div className="section-heading">
+        <div>
+          <p className="mono-label mono-label--accent">Archive / Field notes</p>
+          <h2 id="project-index-title">The complete index.</h2>
+        </div>
+        <p>Live releases, research in progress and experiments that stay deliberately quiet.</p>
       </div>
-    </main>
-  );
-};
+      <div className="project-grid">
+        {PRODUCTS.map((product) => (
+          <article className="project-card" key={product.id}>
+            <div className="project-card__top">
+              <span className="product-index__number">{product.index}</span>
+              <span className={`status-tag status-tag--${product.status}`}>{product.statusLabel}</span>
+            </div>
+            <p className="mono-label">{product.kicker}</p>
+            <h2>{product.title}</h2>
+            <p>{product.tagline}</p>
+            <p className="project-card__summary">{product.description}</p>
+            <div className="project-card__tags">
+              {product.tags.map((tag) => <span key={tag}>{tag}</span>)}
+            </div>
+            <div className="project-card__actions">
+              <Link className="text-link" to={`/product/${product.id}`}>
+                Project details <ArrowUpRight size={14} aria-hidden="true" />
+              </Link>
+              {product.link && (
+                <a className="text-link" href={product.link} target="_blank" rel="noopener noreferrer">
+                  Visit live <ArrowUpRight size={12} aria-hidden="true" />
+                </a>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+);
 
-export default ProjectsPage;
+export default ProductsPage;

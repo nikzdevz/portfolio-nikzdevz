@@ -1,6 +1,10 @@
 # ===========================================
 # Kubernetes Namespace
 # ===========================================
+# Required by every remaining manifest: all resources declare namespace nikzdevz.
+# The serviceaccount was removed with the backend; it is not needed by the
+# frontend deployment (no serviceAccountName is set).
+
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -9,4 +13,3 @@ metadata:
     app: nikzdevz
     environment: production
     managed-by: kubectl
----

@@ -1,0 +1,64 @@
+# NOTE: Docker matches these patterns against the full relative path, so a bare
+# "node_modules" only excludes the root one. "**/" patterns are required to catch
+# frontend/node_modules, which would otherwise overwrite the Linux install inside
+# the image and break `npm run build`.
+
+# Node dependencies and build outputs (recursive)
+**/node_modules
+**/dist
+**/dist-ssr
+**/.vite
+npm-debug.log
+yarn-error.log
+
+# Local runtime logs and pid files
+**/*.log
+**/*.pid
+**/*.tmp
+**/*.temp
+
+# Environment files (injected as build args/env vars instead)
+.env
+.env.*
+**/.env
+**/.env.*
+!**/.env.example
+
+# Editor backups left in the working tree
+**/*.edit-backup.*
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# CI/CD pipelines
+.github
+.gitlab-ci.yml
+.travis.yml
+Jenkinsfile
+
+# Documentation
+README.md
+CHANGELOG.md
+LICENSE
+
+# Powerpack / Trail dev tooling (not needed in the build context)
+.ai
+.trail
+.claude
+
+# Python artifacts left from the removed backend
+**/*.pyc
+**/__pycache__
+**/*.pyo
